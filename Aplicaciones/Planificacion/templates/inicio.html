@@ -1,0 +1,302 @@
+{% extends 'plantilla.html' %}
+{% load static %}
+
+{% block body %}
+<!-- Estilos personalizados -->
+<style>
+    .carousel-item img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .carousel-caption {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 600px;
+    }
+    .feature-box {
+        padding: 30px;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+    .feature-box:hover {
+        transform: translateY(-10px);
+    }
+    .section-divider {
+        height: 8px;
+        background: linear-gradient(to right, #d35400, #f39c12, #27ae60);
+        border-radius: 5px;
+        margin: 40px 0;
+    }
+    .project-card img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+    .project-card img:hover {
+        transform: scale(1.05);
+    }
+</style>
+
+<!-- Contenido principal -->
+<main class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <!-- Carrusel de imágenes -->
+            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="carousel-img-container">
+                            <img src="https://www.lahora.com.ec/wp-content/uploads/2023/11/ecuador-construccion-noboa-economia-e1700662557257.jpg" class="d-block w-100" alt="Imagen 1">
+                            <div class="carousel-overlay">
+                                <div class="carousel-content">
+                                    <div class="content-box">
+                                        <h1 class="display-4 fw-bold text-shadow">Construyendo Sueños</h1>
+                                        <p class="lead text-shadow">Liderando el sector de la construcción con proyectos innovadores y de alta calidad.</p>
+                                        <a href="#proyectos" class="btn btn-outline-light btn-lg px-5 py-3">Ver Proyectos</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-img-container">
+                            <img src="https://ekosnegocios.com/image/posts/October2021/ojvLPthSrncEnKUQaekB.jpg" class="d-block w-100" alt="Imagen 2">
+                            <div class="carousel-overlay">
+                                <div class="carousel-content">
+                                    <div class="content-box">
+                                        <h1 class="display-4 fw-bold text-shadow">Construyendo Sueños</h1>
+                                        <p class="lead text-shadow">Liderando el sector de la construcción con proyectos innovadores y de alta calidad.</p>
+                                        <a href="#proyectos" class="btn btn-outline-light btn-lg px-5 py-3">Ver Proyectos</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-img-container">
+                            <img src="https://www.vistazo.com/binrepository/768x433/0c1/768d432/none/12727/JMAR/foto-2-constructora-barrazueta_1877179_20241127122922.jpg" class="d-block w-100" alt="Imagen 3">
+                            <div class="carousel-overlay">
+                                <div class="carousel-content">
+                                    <div class="content-box">
+                                        <h1 class="display-4 fw-bold text-shadow">Construyendo Sueños</h1>
+                                        <p class="lead text-shadow">Liderando el sector de la construcción con proyectos innovadores y de alta calidad.</p>
+                                        <a href="#proyectos" class="btn btn-outline-light btn-lg px-5 py-3">Ver Proyectos</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+/* Estilos para el carrusel */
+#heroCarousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Contenedor para las imágenes */
+.carousel-img-container {
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Overlay y contenido centrado */
+.carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+    display: flex;
+    align-items: center;
+}
+
+.carousel-content {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 10%;
+}
+
+.content-box {
+    background: rgba(255,255,255,0.1);
+    border-left: 5px solid #ff4500;
+    padding: 30px;
+    max-width: 600px;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+}
+
+/* Estilos de texto */
+.content-box h1 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 3rem;
+}
+
+.content-box p {
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+}
+
+/* Botón con estilo */
+.btn-outline-light {
+    border-width: 2px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-outline-light:hover {
+    background-color: #ff4500;
+    border-color: #ff4500;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Controles del carrusel */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .carousel-img-container {
+        height: 400px;
+    }
+
+    .content-box {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .content-box h1 {
+        font-size: 2rem;
+    }
+
+    .content-box p {
+        font-size: 1rem;
+    }
+}
+</style>
+
+    <!-- Beneficios destacados -->
+    <div class="row mt-5 text-center">
+        <div class="col-md-4">
+            <div class="feature-box">
+                <i class="fas fa-building fa-3x mb-3 text-primary"></i>
+                <h4 class="fw-bold">Proyectos de Calidad</h4>
+                <p>Construimos con materiales de primera y diseños innovadores.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box">
+                <i class="fas fa-users-cog fa-3x mb-3 text-secondary"></i>
+                <h4 class="fw-bold">Equipo Profesional</h4>
+                <p>Contamos con ingenieros y arquitectos altamente calificados.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box">
+                <i class="fas fa-clock fa-3x mb-3 text-success"></i>
+                <h4 class="fw-bold">Entrega Puntual</h4>
+                <p>Garantizamos la entrega de proyectos en tiempo y forma.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Galería de imágenes -->
+<section id="proyectos" class="container my-5">
+    <h2 class="text-center mb-4 fw-bold">Nuestros Proyectos</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="project-card">
+                <img src="https://centroempresarial27.com/wp-content/uploads/2023/06/empresarial27.jpg" 
+                     alt="Proyecto 1" class="img-fluid fixed-size">
+                <h5 class="text-center mt-3">Edificio Empresarial</h5>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="project-card">
+                <img src="https://pics.nuroa.com/casa_3_recamaras_en_venta_dentro_de_coto_real_san_isidro_7440001738508463140.jpg" 
+                     alt="Proyecto 2" class="img-fluid fixed-size">
+                <h5 class="text-center mt-3">Residencial Moderno</h5>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="project-card">
+                <img src="https://www.caf.com/media/8882/infraestructuras-urbanas.jpg" 
+                     alt="Proyecto 3" class="img-fluid fixed-size">
+                <h5 class="text-center mt-3">Infraestructura Urbana</h5>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .fixed-size {
+        width: 100%; /* Ocupa todo el ancho del contenedor */
+        height: 200px; /* Altura fija para todas las imágenes */
+        object-fit: cover; /* Ajusta la imagen sin deformarla */
+        border-radius: 10px; /* Esquinas redondeadas */
+    }
+</style>
+
+
+<!-- Scripts para animaciones -->
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+{% endblock %}

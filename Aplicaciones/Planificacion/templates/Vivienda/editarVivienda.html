@@ -1,0 +1,94 @@
+{% extends "plantilla.html" %}
+
+{% block body %}
+<div class="container d-flex justify-content-center mt-4">
+    <div class="card p-4 shadow" style="max-width: 40rem; width: 100%; background-color: #f8f9fa; border-radius: 15px;">
+        <h1 class="card-title text-center mb-4" style="color: #2c3e50; font-weight: 600;">Editar Vivienda</h1>
+        
+        <!-- Mostrar mensajes -->
+        {% if messages %}
+            <div class="alert alert-info animate__animated animate__fadeIn">
+                {% for message in messages %}
+                    <p class="mb-0">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <div class="text-end mb-3">
+            <a href="{% url 'listadoViviendas' %}" class="btn btn-success" style="border-radius: 8px; transition: all 0.3s ease;">
+                <i class="fas fa-list me-2"></i>Listado de Viviendas
+            </a>
+        </div>
+        
+        <form action="{% url 'actualizarVivienda' vivienda.id %}" method="post" id="frm_vivienda" novalidate class="needs-validation">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="direccion" class="form-label fw-bold" style="color: #2c3e50;">Dirección:</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                    <textarea name="direccion" class="form-control" id="direccion" rows="2" required
+                             style="border-radius: 8px; padding: 10px;">{{ vivienda.direccion }}</textarea>
+                </div>
+                <small id="direccionError" class="text-danger"></small>
+            </div>
+            
+            <div class="mb-3">
+                <label for="tipo" class="form-label fw-bold" style="color: #2c3e50;">Tipo:</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-home"></i></span>
+                    <input type="text" name="tipo" class="form-control" id="tipo" value="{{ vivienda.tipo }}" required
+                           style="border-radius: 8px; padding: 10px;">
+                </div>
+                <small id="tipoError" class="text-danger"></small>
+            </div>
+
+            <div class="mb-3">
+                <label for="metros_cuadrados" class="form-label fw-bold" style="color: #2c3e50;">Metros Cuadrados:</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-ruler-combined"></i></span>
+                    <input type="number" name="metros_cuadrados" class="form-control" id="metros_cuadrados" value="{{ vivienda.metros_cuadrados }}" required step="0.1"
+                           style="border-radius: 8px; padding: 10px;">
+                </div>
+                <small id="metros_cuadradosError" class="text-danger"></small>
+            </div>
+
+            <div class="mb-3">
+                <label for="precio" class="form-label fw-bold" style="color: #2c3e50;">Precio:</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                    <input type="number" name="precio" class="form-control" id="precio" value="{{ vivienda.precio }}" required step="0.01"
+                           style="border-radius: 8px; padding: 10px;">
+                </div>
+                <small id="precioError" class="text-danger"></small>
+            </div>
+
+            <div class="mb-3">
+                <label for="cliente" class="form-label fw-bold" style="color: #2c3e50;">Cliente:</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    <select name="cliente" id="cliente" class="form-control" required
+                            style="border-radius: 8px; padding: 10px;">
+                        <option value="">Seleccione un Cliente</option>
+                        {% for cliente in clientes %}
+                            <option value="{{ cliente.id }}" {% if cliente.id == vivienda.cliente.id %}selected{% endif %}>{{ cliente.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <small id="clienteError" class="text-danger"></small>
+            </div>
+
+            <div class="d-flex justify-content-between gap-3">
+                <button type="submit" class="btn btn-primary flex-grow-1" 
+                        style="border-radius: 8px; padding: 12px; transition: all 0.3s ease;">
+                    <i class="fas fa-save me-2"></i>Actualizar Vivienda
+                </button>
+                <a href="{% url 'listadoViviendas' %}" class="btn btn-secondary flex-grow-1" 
+                   style="border-radius: 8px; padding: 12px; transition: all 0.3s ease;">
+                    <i class="fas fa-times me-2"></i>Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

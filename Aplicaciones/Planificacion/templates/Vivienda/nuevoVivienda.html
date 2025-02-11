@@ -1,0 +1,240 @@
+{% extends "plantilla.html" %}
+
+{% block body %}
+<div class="container d-flex justify-content-center mt-4">
+    <div class="card p-4 shadow" style="max-width: 40rem; width: 100%; background-color: #f8f9fa; border-radius: 15px;">
+        <h1 class="card-title text-center mb-4" style="color: #2c3e50; font-weight: 600;">Registrar Vivienda</h1>
+        
+        <!-- Mostrar mensajes -->
+        {% if messages %}
+            <div class="alert alert-info animate__animated animate__fadeIn">
+                {% for message in messages %}
+                    <p class="mb-0">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <div class="text-end mb-3">
+            <a href="{% url 'listadoViviendas' %}" class="btn btn-success" style="border-radius: 8px; transition: all 0.3s ease;">
+                <i class="fas fa-list me-2"></i>Listado de Viviendas
+            </a>
+        </div>
+        
+        <form action="{% url 'guardarVivienda' %}" method="post" id="frm_vivienda" novalidate class="needs-validation">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="direccion" class="form-label fw-bold" style="color: #2c3e50;">Dirección:</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                    <textarea name="direccion" class="form-control" id="direccion" rows="2" required
+                             style="border-radius: 8px; padding: 10px;"></textarea>
+                </div>
+                <small id="direccionError" class="text-danger"></small>
+            </div>
+
+            <div class="mb-3">
+                <label for="tipo" class="form-label fw-bold" style="color: #2c3e50;">Tipo:</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-home"></i></span>
+                    <input type="text" name="tipo" class="form-control" id="tipo" required
+                           style="border-radius: 8px; padding: 10px;">
+                </div>
+                <small id="tipoError" class="text-danger"></small>
+            </div>
+
+            <div class="mb-3">
+                <label for="metros_cuadrados" class="form-label fw-bold" style="color: #2c3e50;">Metros Cuadrados:</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-ruler-combined"></i></span>
+                    <input type="number" name="metros_cuadrados" class="form-control" id="metros_cuadrados" required step="0.1"
+                           style="border-radius: 8px; padding: 10px;">
+                </div>
+                <small id="metros_cuadradosError" class="text-danger"></small>
+            </div>
+
+            <div class="mb-3">
+                <label for="precio" class="form-label fw-bold" style="color: #2c3e50;">Precio:</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                    <input type="number" name="precio" class="form-control" id="precio" required step="0.01"
+                           style="border-radius: 8px; padding: 10px;">
+                </div>
+                <small id="precioError" class="text-danger"></small>
+            </div>
+
+            <div class="mb-3">
+                <label for="cliente" class="form-label fw-bold" style="color: #2c3e50;">Cliente:</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    <select name="cliente" id="cliente" class="form-control" required
+                            style="border-radius: 8px; padding: 10px;">
+                        <option value="">Seleccione un Cliente</option>
+                        {% for cliente in clientes %}
+                            <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <small id="clienteError" class="text-danger"></small>
+            </div>
+
+            <div class="mb-3">
+                <label for="constructora" class="form-label fw-bold" style="color: #2c3e50;">Constructora:</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-building"></i></span>
+                    <select name="constructora" id="constructora" class="form-control" required
+                            style="border-radius: 8px; padding: 10px;">
+                        <option value="">Seleccione una Constructora</option>
+                        {% for constructora in constructoras %}
+                            <option value="{{ constructora.id }}">{{ constructora.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <small id="constructoraError" class="text-danger"></small>
+            </div>
+
+            <div class="mb-4">
+                <label for="estado" class="form-label fw-bold" style="color: #2c3e50;">Estado:</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                    <select name="estado" id="estado" class="form-control" required
+                            style="border-radius: 8px; padding: 10px;">
+                        <option value="En construcción">En construcción</option>
+                        <option value="Terminada">Terminada</option>
+                    </select>
+                </div>
+                <small id="estadoError" class="text-danger"></small>
+            </div>
+
+            <div class="d-flex justify-content-between gap-3">
+                <button type="submit" class="btn btn-primary flex-grow-1" 
+                        style="border-radius: 8px; padding: 12px; transition: all 0.3s ease;">
+                    <i class="fas fa-save me-2"></i>Registrar Vivienda
+                </button>
+                <a href="{% url 'listadoViviendas' %}" class="btn btn-secondary flex-grow-1" 
+                   style="border-radius: 8px; padding: 12px; transition: all 0.3s ease;">
+                    <i class="fas fa-times me-2"></i>Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .input-group-text {
+        background-color: #f8f9fa;
+        border-right: none;
+    }
+    
+    .form-control {
+        border-left: none;
+    }
+    
+    .form-control:focus {
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        border-color: #ced4da;
+    }
+    
+    .btn {
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .card {
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
+    }
+
+    @media (max-width: 576px) {
+        .container {
+            padding: 10px;
+        }
+        
+        .card {
+            border-radius: 10px;
+        }
+        
+        .d-flex.justify-content-between {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .btn {
+            width: 100%;
+        }
+    }
+
+    select.form-control {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 12.64l-6.964-7a1 1 0 011.414-1.414l5.25 5.287 5.25-5.287a1 1 0 111.414 1.414l-6.964 7a1 1 0 01-1.414 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        padding-right: 2.5rem;
+    }
+</style>
+
+<script>
+    document.getElementById('frm_vivienda').addEventListener('submit', function(event) {
+        let isValid = true;
+        document.querySelectorAll('.text-danger').forEach(el => el.textContent = '');
+
+        const direccion = document.getElementById('direccion').value.trim();
+        if (!direccion) {
+            document.getElementById('direccionError').textContent = "La dirección es obligatoria.";
+            isValid = false;
+        }
+
+        const tipo = document.getElementById('tipo').value.trim();
+        if (!tipo) {
+            document.getElementById('tipoError').textContent = "El tipo de vivienda es obligatorio.";
+            isValid = false;
+        }
+
+        const metros_cuadrados = document.getElementById('metros_cuadrados').value.trim();
+        if (!metros_cuadrados || metros_cuadrados <= 0) {
+            document.getElementById('metros_cuadradosError').textContent = "Ingrese un valor válido para metros cuadrados.";
+            isValid = false;
+        }
+
+        const precio = document.getElementById('precio').value.trim();
+        if (!precio || precio <= 0) {
+            document.getElementById('precioError').textContent = "Ingrese un precio válido.";
+            isValid = false;
+        }
+
+        const cliente = document.getElementById('cliente').value.trim();
+        if (!cliente) {
+            document.getElementById('clienteError').textContent = "Debe seleccionar un cliente.";
+            isValid = false;
+        }
+
+        const constructora = document.getElementById('constructora').value.trim();
+        if (!constructora) {
+            document.getElementById('constructoraError').textContent = "Debe seleccionar una constructora.";
+            isValid = false;
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+            // Add shake animation to invalid fields
+            document.querySelectorAll('.text-danger').forEach(el => {
+                if (el.textContent) {
+                    el.previousElementSibling.classList.add('animate__animated', 'animate__shakeX');
+                    setTimeout(() => {
+                        el.previousElementSibling.classList.remove('animate__animated', 'animate__shakeX');
+                    }, 1000);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

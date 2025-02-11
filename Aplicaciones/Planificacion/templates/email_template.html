@@ -1,0 +1,71 @@
+<!-- templates/actividades/email_template.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Detalles de la Actividad</h2>
+        </div>
+        <div class="content">
+            <p><strong>Vivienda:</strong> {{ actividad.vivienda.direccion }}</p>
+            <p><strong>Descripción:</strong> {{ actividad.descripcion }}</p>
+            <p><strong>Fecha de Inicio:</strong> {{ actividad.fecha_inicio }}</p>
+            <p><strong>Fecha de Fin:</strong> {{ actividad.fecha_fin|default:"No definida" }}</p>
+            <p><strong>Estado:</strong> {{ actividad.estado }}</p>
+            {% if actividad.foto %}
+            <p><strong>Foto:</strong> <a href="{{ BASE_URL }}{{ actividad.foto.url }}">Ver foto</a></p>
+            {% endif %}
+        </div>
+        <div class="footer">
+            <p>Este es un correo automático, por favor no responder.</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- Modificación para listado_actividades.html - Agregar el botón de enviar correo -->
+<!-- Modificar la columna de acciones en la tabla -->
+<td>
+    <a href="{% url 'editarActividad' actividad.id %}" class="btn btn-primary">
+        <i class="fas fa-edit"></i> Editar
+    </a>
+    <a href="{% url 'eliminarActividad' actividad.id %}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar esta actividad?');">
+        <i class="fas fa-trash"></i> Eliminar
+    </a>
+    {% if actividad.email %}
+    <a href="{% url 'enviarCorreoActividad' actividad.id %}" class="btn btn-info">
+        <i class="fas fa-envelope"></i> Enviar al Correo
+    </a>
+    {% endif %}
+</td>
